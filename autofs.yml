@@ -40,7 +40,7 @@
    - name: line insert at begining
      lineinfile:
       path: /etc/auto.connect
-      line: /team2  -rw,sync,no_root_squash,no_subtree_check  prdx-nfs12:/share
+      line: *  -rw,sync,no_root_squash,no_subtree_check  prdx-nfs12:/share/&
 
 
  
