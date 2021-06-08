@@ -1,0 +1,49 @@
+---
+- name:
+  hosts: dns
+  become: yes
+  tasks:
+   - name: install autofs
+     yum:
+        name: ['autofs', 'nfs-utils']
+        state: latest
+     
+   - name: autofs is started
+     service: 
+       name: autofs
+       state: started
+       enabled: yes
+
+   - name: Create directory
+     file:
+       path: /team2
+       state: directory
+       owner: ansible
+       group: ansible
+       mode: '0775'
+     
+  #  - name: if NFS Server is sharing anything with this client
+  #    shell: "showmount -e prdx-nfs12"
+   - name: Create empty file
+     file:
+       path: /etc/auto.connect
+       state: touch
+       owner: ansible
+       group: ansible
+       mode: '0775'
+    
+   - name:  line insert at the end
+     lineinfile:  
+      path:  /etc/auto.master
+      line: /-  /etc/auto.connect  --t 60
+
+   - name: line insert at begining
+     lineinfile:
+      path: /etc/auto.connect
+      line: /team2  -rw,sync,no_root_squash,no_subtree_check  prdx-nfs12:/share
+
+
+ 
+
+    
+
