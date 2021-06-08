@@ -35,7 +35,7 @@
    - name:  line insert at the end
      lineinfile:  
       path:  /etc/auto.master
-      line: /-  /etc/auto.connect  --t 60
+      line: /home  /etc/auto.connect  --t 60
 
    - name: line insert at begining
      lineinfile:
